@@ -1,0 +1,9 @@
+<library path="vacbot_hardware_interface">
+    <class name="vacbot_hardware_interface/VacbotInterface"
+            type="vacbot_hardware_interface::VacbotInterface"
+            base_class_type="hardware_interface::SystemInterface">
+        <description>
+            ROS2 control plugin for vacbot. Includes diff_drive and gpio control for the vacuum.
+        </description>
+    </class>
+</library>
