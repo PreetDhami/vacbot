@@ -7,7 +7,7 @@
 #include "hardware_interface/system_interface.hpp"
 #include "hardware_interface/types/hardware_interface_return_values.hpp"
 #include <string>
-//#include <wiringPi.h>
+#include <wiringPi.h>
 
 namespace vacbot_hardware_interface{
     class VacbotInterface : public hardware_interface::SystemInterface{
@@ -52,7 +52,6 @@ namespace vacbot_hardware_interface{
             std::string right_wheel_name = "";
             double right_cmd; 
 
-            double prev_time;
     };
 }
 

@@ -37,8 +37,7 @@ def generate_launch_description():
     controller_manager = launch_ros.actions.Node(
         package="controller_manager",
         executable="ros2_control_node",
-        parameters=[robot_description,
-                    controller_params_file]
+        parameters=[controller_params_file]
     )
 
     delayed_controller_manager = TimerAction(period=3.0, actions=[controller_manager])
@@ -47,7 +46,7 @@ def generate_launch_description():
     joint_broad_spawner = launch_ros.actions.Node(
         package="controller_manager",
         executable="spawner",
-        arguments=["joint_broad"],
+        arguments=["joint_state_broadcaster"],
     )
 
     delayed_joint_broad_spawner = RegisterEventHandler(
@@ -63,13 +62,13 @@ def generate_launch_description():
         arguments=["diff_cont"],
     )
 
-    rviz_node = launch_ros.actions.Node(
-        package='rviz2',
-        executable='rviz2',
-        name='rviz2',
-        output='screen',
-        arguments=['-d', LaunchConfiguration('rvizconfig')],
-    )
+#    rviz_node = launch_ros.actions.Node(
+#        package='rviz2',
+#        executable='rviz2',
+#        name='rviz2',
+#        output='screen',
+#        arguments=['-d', LaunchConfiguration('rvizconfig')],
+#    )
 
     # spawn_entity = launch_ros.actions.Node(
     # 	package='gazebo_ros', 
@@ -99,5 +98,5 @@ def generate_launch_description():
         delayed_controller_manager,
         # spawn_entity,
         # robot_localization_node,
-        rviz_node
+        # rviz_node
     ])

@@ -21,18 +21,12 @@ foreach(Dependency IN ITEMS ${THIS_PACKAGE_INCLUDE_DEPENDS})
 endforeach()
 
 
-
-
 add_library(
   vacbot_hardware_interface
   SHARED
   src/vacbot_hardware_interface.cpp
 )
 
-
-
-
-# target_link_libraries(test_wiringpi_ros ${catkin_LIBRARIES} -lwiringPi)
 
 target_compile_features(vacbot_hardware_interface PUBLIC cxx_std_17)
 target_include_directories(vacbot_hardware_interface PUBLIC
@@ -44,7 +38,7 @@ ament_target_dependencies(
   vacbot_hardware_interface PUBLIC
   ${THIS_PACKAGE_INCLUDE_DEPENDS}
 )
-
+target_link_libraries(vacbot_hardware_interface PUBLIC -lwiringPi)
 
 
 # Export hardware plugins
