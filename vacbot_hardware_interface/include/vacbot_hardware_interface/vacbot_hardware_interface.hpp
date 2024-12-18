@@ -52,6 +52,7 @@ namespace vacbot_hardware_interface{
             std::string right_wheel_name = "";
             double right_cmd; 
 
+            double prev_time;
     };
 }
 

@@ -25,6 +25,9 @@ namespace vacbot_hardware_interface{
         right_pwm_pin = std::stoi(info_.hardware_parameters["right_pwm_pin"]);
         right_wheel_name = info_.hardware_parameters["right_wheel_name"];
 
+
+        prev_time = 0.0;
+
         return hardware_interface::CallbackReturn::SUCCESS;
     }
 
@@ -147,7 +150,7 @@ namespace vacbot_hardware_interface{
             digitalWrite(left_forward_pin, LOW);
             digitalWrite(left_backward_pin, LOW);
         }
-        int l_pwm = abs(left_cmd)/MAXSPEED;
+        int l_pwm = 1024*abs(left_cmd)/MAXSPEED;
         pwmWrite(left_pwm_pin, std::min(l_pwm, 1023));
 
 
@@ -164,9 +167,14 @@ namespace vacbot_hardware_interface{
             digitalWrite(right_forward_pin, LOW);
             digitalWrite(right_backward_pin, LOW);
         }
-        int r_pwm = abs(right_cmd)/MAXSPEED;
+        int r_pwm = 1024*abs(right_cmd)/MAXSPEED;
         pwmWrite(right_pwm_pin, std::min(r_pwm, 1023));
 
+        if(time.seconds() - prev_time > 1.0){
+            RCLCPP_INFO(rclcpp::get_logger("VacbotHardware"), "left_cmd = %f", left_cmd);
+            RCLCPP_INFO(rclcpp::get_logger("VacbotHardware"), "right_cmd = %f", right_cmd);
+            prev_time = time.seconds();
+        }
 
         return hardware_interface::return_type::OK;
     }
